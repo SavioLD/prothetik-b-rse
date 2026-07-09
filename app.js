@@ -121,6 +121,96 @@ const PB = {
     el._t = setTimeout(() => el.classList.remove('show'), 5000);
   },
 
+  /* ---------- Nachrichten-Übersicht: Konversationsliste + Chat ---------- */
+  initInbox({ listId, headId, bodyId, inputId, sendId, chats, meInitials }) {
+    const list = document.getElementById(listId);
+    const head = document.getElementById(headId);
+    const body = document.getElementById(bodyId);
+    const input = document.getElementById(inputId);
+    const send = document.getElementById(sendId);
+    if (!list || !body) return;
+    let active = 0;
+
+    const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+    const renderList = () => {
+      list.innerHTML = chats.map((c, i) => `
+        <div class="convo-item ${i === active ? 'active' : ''}" data-i="${i}">
+          <div class="avatar" style="background:${c.grad}">${c.initials}</div>
+          <div class="convo-mid">
+            <b>${esc(c.name)}</b>
+            <small>${esc(c.messages[c.messages.length - 1].text)}</small>
+          </div>
+          <div class="convo-meta">
+            <time>${c.messages[c.messages.length - 1].time}</time>
+            ${c.unread ? `<span class="count">${c.unread}</span>` : ''}
+          </div>
+        </div>`).join('');
+      list.querySelectorAll('.convo-item').forEach(el =>
+        el.addEventListener('click', () => { active = Number(el.dataset.i); chats[active].unread = 0; renderList(); renderChat(); })
+      );
+    };
+
+    const renderChat = () => {
+      const c = chats[active];
+      head.innerHTML = `
+        <div class="avatar" style="background:${c.grad}">${c.initials}</div>
+        <div><b>${esc(c.name)}</b><small>${esc(c.sub)}</small></div>
+        <span class="status badge badge-green"><span class="dot"></span> Online</span>`;
+      body.innerHTML = c.messages.map(m => `
+        <div class="msg ${m.who}">
+          <div class="avatar" ${m.who === 'them' ? `style="background:${c.grad}"` : ''}>${m.who === 'me' ? meInitials : c.initials}</div>
+          <div class="bubble">${esc(m.text)}</div>
+          <time>${m.time}</time>
+        </div>`).join('');
+      body.scrollTop = body.scrollHeight;
+    };
+
+    const now = () => new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+    const submit = () => {
+      const text = input.value.trim();
+      if (!text) return;
+      if (PB.looksLikePatientData(text)) { PB.warnPatientData(); return; }
+      chats[active].messages.push({ who: 'me', text, time: now() });
+      input.value = '';
+      renderChat(); renderList();
+      setTimeout(() => {
+        chats[active].messages.push({ who: 'them', text: 'Alles klar, danke für die Info! Ich melde mich, sobald es Neuigkeiten gibt. 👍', time: now() });
+        renderChat(); renderList();
+      }, 1400);
+    };
+    if (send) send.addEventListener('click', submit);
+    if (input) input.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+
+    renderList(); renderChat();
+  },
+
+  /* ---------- Auftragsliste: Tabs + Suche ---------- */
+  initOrderFilter({ tabsId, tableId, searchId }) {
+    const tabs = document.getElementById(tabsId);
+    const table = document.getElementById(tableId);
+    const search = document.getElementById(searchId);
+    if (!table) return;
+    let filter = 'all';
+    const apply = () => {
+      const q = (search ? search.value : '').toLowerCase();
+      table.querySelectorAll('tbody tr').forEach(tr => {
+        const okFilter = filter === 'all' || tr.dataset.status === filter;
+        const okSearch = !q || tr.textContent.toLowerCase().includes(q);
+        tr.style.display = okFilter && okSearch ? '' : 'none';
+      });
+    };
+    if (tabs) tabs.querySelectorAll('button').forEach(btn =>
+      btn.addEventListener('click', () => {
+        tabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filter = btn.dataset.filter;
+        apply();
+      })
+    );
+    if (search) search.addEventListener('input', apply);
+  },
+
   /* ---------- Chat (Demo) ---------- */
   initChat({ bodyId, inputId, sendId, replyAs }) {
     const body = document.getElementById(bodyId);

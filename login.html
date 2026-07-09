@@ -44,8 +44,8 @@
   <!-- Rechte Seite: Anmeldung -->
   <main class="auth-form-wrap">
     <div class="auth-card">
-      <h1>Willkommen zurück</h1>
-      <p>Melde dich an oder wähle für die Demo einfach deine Rolle.</p>
+      <h1>Demo starten</h1>
+      <p>Wähle zuerst Deine Rolle – Du bleibst in der gesamten Demo in dieser Sicht.</p>
 
       <div class="role-pick">
         <div class="role-tile selected" id="roleDentist">
@@ -73,7 +73,7 @@
             Anmeldung mit Zwei-Faktor-Authentifizierung (in der Demo deaktiviert)
           </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block btn-lg">Anmelden</button>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="loginBtn">Demo starten als Zahnarztpraxis</button>
       </form>
 
       <p style="margin-top:20px; text-align:center; font-size:13.5px;">
@@ -87,11 +87,13 @@
 <script>
   let role = 'dentist';
   const tiles = { dentist: document.getElementById('roleDentist'), tech: document.getElementById('roleTech') };
+  const loginBtn = document.getElementById('loginBtn');
   Object.entries(tiles).forEach(([key, el]) => {
     el.addEventListener('click', () => {
       role = key;
       Object.values(tiles).forEach(t => t.classList.remove('selected'));
       el.classList.add('selected');
+      loginBtn.textContent = role === 'tech' ? 'Demo starten als Dentallabor' : 'Demo starten als Zahnarztpraxis';
     });
   });
   document.getElementById('loginForm').addEventListener('submit', e => {

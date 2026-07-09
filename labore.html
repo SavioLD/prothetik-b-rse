@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meine Labore – Prothetik Börse</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ Sidebar (Zahnarztpraxis) ============ -->
+  <aside class="sidebar">
+    <a class="logo" href="index.html">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.1 2 5 4.6 5 8.1c0 2.4 1 3.9 1.5 5.9.6 2.2.5 8 2.6 8 1.9 0 1.4-5.2 2.9-5.2s1 5.2 2.9 5.2c2.1 0 2-5.8 2.6-8 .5-2 1.5-3.5 1.5-5.9C19 4.6 15.9 2 12 2z"/></svg>
+      </span>
+      <span>Prothetik<em>Börse</em></span>
+    </a>
+
+    <div class="nav-label">Praxis-Menü</div>
+    <a class="nav-item" href="dashboard.html">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+      Dashboard
+    </a>
+    <a class="nav-item" href="anfrage-neu.html">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Neue Anfrage
+    </a>
+    <a class="nav-item" href="auftraege.html">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Aufträge
+      <span class="count">8</span>
+    </a>
+    <a class="nav-item" href="nachrichten.html">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+      Nachrichten
+      <span class="count">3</span>
+    </a>
+    <a class="nav-item active" href="labore.html">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Meine Labore
+    </a>
+
+    <div class="nav-label">Demnächst</div>
+    <a class="nav-item" href="#" onclick="PB.toast('Die Jobbörse folgt in Ausbau-Stufe 2'); return false;">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      Jobbörse
+      <span class="badge badge-teal" style="margin-left:auto;">Bald</span>
+    </a>
+
+    <div class="spacer"></div>
+    <div class="user-chip">
+      <div class="avatar">SR</div>
+      <div>
+        <b>Praxis Dr. Röckle</b>
+        <small>Zahnarzt · 78628 Rottweil</small>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ Hauptbereich ============ -->
+  <main class="main">
+
+    <div class="topbar">
+      <div>
+        <h1>Meine Labore</h1>
+        <p>Deine Partnerlabore – mit Bewertungen und gemeinsamer Auftragshistorie.</p>
+      </div>
+      <div class="topbar-actions">
+        <a class="btn btn-outline btn-sm" href="techniker.html" title="Demo-Rolle wechseln">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"/></svg>
+          Demo: als Labor ansehen
+        </a>
+        <a class="btn btn-primary btn-sm" href="anfrage-neu.html">+ Neue Anfrage</a>
+      </div>
+    </div>
+
+    <div class="order-grid">
+
+      <div class="order-card lab-card">
+        <div class="top">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="avatar" style="background:linear-gradient(135deg,#2BB3B1,#2F86E0); width:46px; height:46px;">DS</div>
+            <div>
+              <h3>Dentallabor Sommer</h3>
+              <small style="color:var(--ink-500);">78628 Rottweil · 2 km</small>
+            </div>
+          </div>
+          <span class="badge badge-green"><span class="dot"></span> Favorit</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="stars">★★★★★</span>
+          <b style="font-size:14px;">4,9</b>
+          <small style="color:var(--ink-500);">(87 Bewertungen)</small>
+        </div>
+        <div class="tags">
+          <span class="tag">Zirkon</span><span class="tag">Implantat</span><span class="tag">CAD/CAM</span><span class="tag">Veneers</span>
+        </div>
+        <div class="lab-kpis">
+          <div><b>23</b> gemeinsame Aufträge</div>
+          <div><b>9 Tage</b> Ø Lieferzeit</div>
+          <div><b>heute</b> letzter Kontakt</div>
+        </div>
+        <div class="foot">
+          <a class="btn btn-secondary btn-sm" href="nachrichten.html">Chat öffnen</a>
+          <a class="btn btn-primary btn-sm" href="anfrage-neu.html">Direkt anfragen</a>
+        </div>
+      </div>
+
+      <div class="order-card lab-card">
+        <div class="top">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="avatar" style="background:linear-gradient(135deg,#5BA4EC,#1A5CA3); width:46px; height:46px;">ZM</div>
+            <div>
+              <h3>Zahntechnik Maier</h3>
+              <small style="color:var(--ink-500);">78661 Dietingen · 12 km</small>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="stars">★★★★★</span>
+          <b style="font-size:14px;">4,7</b>
+          <small style="color:var(--ink-500);">(54 Bewertungen)</small>
+        </div>
+        <div class="tags">
+          <span class="tag">Prothesen</span><span class="tag">Modellguss</span><span class="tag">Reparaturen</span>
+        </div>
+        <div class="lab-kpis">
+          <div><b>11</b> gemeinsame Aufträge</div>
+          <div><b>7 Tage</b> Ø Lieferzeit</div>
+          <div><b>vor 3 Std.</b> letzter Kontakt</div>
+        </div>
+        <div class="foot">
+          <a class="btn btn-secondary btn-sm" href="nachrichten.html">Chat öffnen</a>
+          <a class="btn btn-primary btn-sm" href="anfrage-neu.html">Direkt anfragen</a>
+        </div>
+      </div>
+
+      <div class="order-card lab-card">
+        <div class="top">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="avatar" style="background:linear-gradient(135deg,#E89B2F,#D9534F); width:46px; height:46px;">LK</div>
+            <div>
+              <h3>Labor Kessler &amp; Co.</h3>
+              <small style="color:var(--ink-500);">78056 VS-Schwenningen · 18 km</small>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="stars">★★★★★</span>
+          <b style="font-size:14px;">4,8</b>
+          <small style="color:var(--ink-500);">(61 Bewertungen)</small>
+        </div>
+        <div class="tags">
+          <span class="tag">Schienen</span><span class="tag">Provisorien</span><span class="tag">Notfall in 24 h</span>
+        </div>
+        <div class="lab-kpis">
+          <div><b>8</b> gemeinsame Aufträge</div>
+          <div><b>4 Tage</b> Ø Lieferzeit</div>
+          <div><b>gestern</b> letzter Kontakt</div>
+        </div>
+        <div class="foot">
+          <a class="btn btn-secondary btn-sm" href="nachrichten.html">Chat öffnen</a>
+          <a class="btn btn-primary btn-sm" href="anfrage-neu.html">Direkt anfragen</a>
+        </div>
+      </div>
+
+      <div class="order-card lab-card">
+        <div class="top">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="avatar" style="background:linear-gradient(135deg,#2FA866,#2BB3B1); width:46px; height:46px;">CD</div>
+            <div>
+              <h3>CeraDent Studio</h3>
+              <small style="color:var(--ink-500);">72336 Balingen · 25 km</small>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span class="stars">★★★★★</span>
+          <b style="font-size:14px;">5,0</b>
+          <small style="color:var(--ink-500);">(32 Bewertungen)</small>
+        </div>
+        <div class="tags">
+          <span class="tag">Veneers</span><span class="tag">Ästhetik</span><span class="tag">Vollkeramik</span>
+        </div>
+        <div class="lab-kpis">
+          <div><b>4</b> gemeinsame Aufträge</div>
+          <div><b>11 Tage</b> Ø Lieferzeit</div>
+          <div><b>Montag</b> letzter Kontakt</div>
+        </div>
+        <div class="foot">
+          <a class="btn btn-secondary btn-sm" href="nachrichten.html">Chat öffnen</a>
+          <a class="btn btn-primary btn-sm" href="anfrage-neu.html">Direkt anfragen</a>
+        </div>
+      </div>
+
+      <div class="order-card" style="display:grid; place-items:center; text-align:center; border-style:dashed; background:var(--blue-50);">
+        <div>
+          <svg width="36" height="36" fill="none" stroke="var(--blue-400)" stroke-width="1.6" viewBox="0 0 24 24" style="margin:0 auto 10px;"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <b style="display:block; margin-bottom:6px;">3 weitere Labore im Umkreis</b>
+          <p style="font-size:13px; color:var(--ink-500); margin-bottom:14px;">Erweitere Deinen Radius, um mehr Partner zu entdecken.</p>
+          <a class="btn btn-outline btn-sm" href="anfrage-neu.html#umkreis">Umkreis erkunden</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

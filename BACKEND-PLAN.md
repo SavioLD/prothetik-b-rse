@@ -44,7 +44,7 @@ Praxisverwaltungssysteme (PVS). Das kommt in späteren Stufen.
 | Queue/Jobs | **Redis + BullMQ** | E-Mail-Versand, Matching-Fanout, Erinnerungen an Liefertermine |
 | Dateispeicher | **S3-kompatibler Object Storage in Deutschland** (z. B. Hetzner Object Storage, IONOS S3, OTC) | Verschlüsselt (SSE), Zugriff nur über kurzlebige signierte URLs |
 | Auth | Eigene JWT-Implementierung (Access + Refresh) **oder** selbst gehostetes Keycloak/Ory | 2FA (TOTP) ist Pflicht-Feature, nicht optional |
-| Abo/Zahlung | **Stripe Billing** (Praxis 89 €, Labor 69 €/Monat) | Subscriptions, SEPA-Lastschrift, Rechnungs-PDFs out of the box |
+| Abo/Zahlung | **Stripe Billing** (Praxis 20 €, Labor 15 €/Monat) | Subscriptions, SEPA-Lastschrift, Rechnungs-PDFs out of the box |
 | E-Mail | Deutscher/europäischer Anbieter mit AVV (z. B. Mailjet EU, Brevo) | DSGVO |
 | Hosting | **Deutsches Rechenzentrum** (Hetzner Cloud, IONOS, StackIT) · Docker + Docker Compose, später ggf. Kubernetes | Serverstandort DE ist Verkaufsargument und DSGVO-Anforderung |
 | Monitoring | Sentry (selbst gehostet oder EU-Region) + Uptime-Check + strukturierte Logs (pino) | Fehler sehen, bevor Kunden anrufen |
