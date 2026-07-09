@@ -452,6 +452,8 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; color: var(--ink-900); }
 .stat b { font-size: 26px; display: block; line-height: 1.1; letter-spacing: -0.5px; }
 .stat span { font-size: 13px; color: var(--ink-500); }
 
+.stats-3 { grid-template-columns: repeat(3, 1fr); }
+
 .panel-head { display: flex; align-items: center; justify-content: space-between; margin: 34px 0 18px; }
 .panel-head h2 { font-size: 19px; letter-spacing: -0.2px; }
 .panel-head a { font-size: 14px; font-weight: 600; }
@@ -949,16 +951,171 @@ input[type="range"]::-moz-range-thumb {
   .pricing-grid { grid-template-columns: 1fr; }
   .auth-wrap { grid-template-columns: 1fr; }
   .auth-side { display: none; }
-  .app { grid-template-columns: 1fr; }
-  .sidebar {
-    position: static; height: auto;
-    flex-direction: row; flex-wrap: wrap; align-items: center;
-    border-right: none; border-bottom: 1px solid var(--border);
-  }
-  .sidebar .nav-label, .sidebar .spacer, .sidebar .user-chip { display: none; }
-  .main { padding: 22px 18px 48px; }
   .site-nav { display: none; }
 }
 @media (max-width: 620px) {
-  .feature-grid, .steps, .stats, .order-grid, .type-grid { grid-template-columns: 1fr; }
+  .feature-grid, .steps, .order-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Mobile-First-Optimierung (App-Gefühl auf dem Smartphone)
+   ============================================================ */
+@media (max-width: 860px) {
+
+  /* --- App-Shell: Sidebar wird zur Bottom-Navigation --- */
+  .app { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed;
+    top: auto; bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: stretch;
+    gap: 0;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    border-right: none;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 16px rgba(20, 60, 100, 0.08);
+  }
+  .sidebar .logo,
+  .sidebar .nav-label,
+  .sidebar .spacer,
+  .sidebar .user-chip { display: none; }
+  .sidebar .nav-item {
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 7px 2px 5px;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sidebar .nav-item svg { width: 22px; height: 22px; }
+  .sidebar .nav-item .count {
+    position: absolute;
+    top: 2px; right: calc(50% - 22px);
+    margin-left: 0;
+    min-width: 16px; height: 16px;
+    font-size: 9.5px;
+    border: 2px solid var(--surface);
+  }
+  .sidebar .nav-item .badge { display: none; }
+  .sidebar a.nav-item[href="#"] { display: none; } /* Jobbörse/Profil: mobil ausgeblendet */
+
+  .main { padding: 16px 16px calc(92px + env(safe-area-inset-bottom)); }
+
+  /* --- Topbar kompakt --- */
+  .topbar { margin-bottom: 18px; gap: 12px; }
+  .topbar h1 { font-size: 20px; }
+  .topbar p { font-size: 13px; }
+  .topbar-actions { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 8px; }
+  .demo-banner { font-size: 12px; padding: 9px 12px; margin-bottom: 14px; flex-wrap: wrap; }
+
+  /* --- Touch-Targets & iOS-Zoom-Fix --- */
+  .btn { padding: 12px 20px; }
+  .btn-sm { padding: 10px 16px; font-size: 13.5px; }
+  input[type="text"], input[type="email"], input[type="password"], input[type="date"],
+  select, textarea { font-size: 16px; padding: 13px 14px; } /* <16px löst iOS-Zoom aus */
+  .chat-input input, .convo-search input, .filter-bar input { font-size: 16px; }
+
+  /* --- Statistiken: kompakte 2er-Kacheln --- */
+  .stats { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .stat { padding: 13px 14px; gap: 11px; }
+  .stat .icon { width: 40px; height: 40px; border-radius: 11px; }
+  .stat .icon svg { width: 20px; height: 20px; }
+  .stat b { font-size: 19px; }
+  .stat span { font-size: 11.5px; }
+
+  /* --- Widgets & Karten --- */
+  .dash-widgets { grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; }
+  .order-grid { grid-template-columns: 1fr; gap: 12px; }
+  .card { padding: 18px; }
+  .panel-head { margin: 22px 0 12px; }
+  .panel-head h2 { font-size: 17px; }
+  .request-actions { width: 100%; }
+  .request-actions .btn { flex: 1; }
+  .order-card .foot { flex-wrap: wrap; gap: 8px; }
+
+  /* --- Tabellen: kompakt + horizontales Wischen --- */
+  .table-wrap { -webkit-overflow-scrolling: touch; }
+  th { padding: 10px 12px; font-size: 11px; }
+  td { padding: 11px 12px; font-size: 13px; }
+  .filter-bar { gap: 10px; }
+  .filter-bar input { max-width: 100%; width: 100%; order: 2; }
+  .filter-bar .seg { max-width: 100%; overflow-x: auto; }
+  .seg button { padding: 9px 14px; }
+
+  /* --- Nachrichten: Konversationen als wischbare Leiste über dem Chat --- */
+  .chat-layout { grid-template-columns: 1fr; gap: 12px; }
+  .convo-list {
+    display: flex;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+  .convo-item {
+    min-width: 210px;
+    scroll-snap-align: start;
+    border-bottom: none;
+    border-right: 1px solid var(--border);
+  }
+  .convo-item:last-child { border-right: none; }
+  .convo-search { padding: 10px 12px; }
+
+  /* --- Chats: Bildschirmhöhe nutzen --- */
+  .chat-panel { height: 60vh; min-height: 400px; }
+  .order-layout { grid-template-columns: 1fr; gap: 14px; }
+  .msg { max-width: 88%; }
+
+  /* --- Formular "Neue Anfrage" --- */
+  .form-grid { grid-template-columns: 1fr; gap: 14px; }
+  .type-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .type-tile { padding: 11px 10px; font-size: 12.5px; gap: 8px; }
+  .type-tile .n { width: 22px; height: 22px; font-size: 11px; }
+  #map { height: 220px; }
+  .dropzone { padding: 26px 16px; }
+
+  /* --- Landingpage --- */
+  .site-header .inner { padding: 10px 16px; }
+  .hero { padding: 48px 20px 44px; }
+  .hero p.lead { font-size: 16px; }
+  .hero-cta .btn { flex: 1; min-width: 150px; }
+  .section { padding: 52px 20px; }
+  .section-head { margin-bottom: 32px; }
+  .cta-final { padding: 60px 20px; }
+  .price-card { padding: 28px 22px; }
+  .site-footer .inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .site-footer a { margin-left: 0; margin-right: 18px; }
+
+  /* --- Modal & Toast --- */
+  .modal { padding: 26px 20px; }
+  .modal .actions .btn { flex: 1; }
+  .toast {
+    width: calc(100% - 28px);
+    max-width: 420px;
+    font-size: 13px;
+    text-align: left;
+    bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+
+  /* --- Login --- */
+  .auth-form-wrap { padding: 28px 18px; align-items: start; }
+  .auth-card h1 { font-size: 22px; }
+}
+
+@media (max-width: 400px) {
+  .header-actions .btn-outline { display: none; }
+  .sidebar .nav-item { font-size: 9px; }
+  .stats { gap: 8px; }
+  .stat b { font-size: 17px; }
 }
