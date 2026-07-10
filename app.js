@@ -121,6 +121,64 @@ const PB = {
     el._t = setTimeout(() => el.classList.remove('show'), 5000);
   },
 
+  /* ---------- Onboarding-Tour (klassische Software-Tour) ----------
+     Startet automatisch beim ersten Besuch (localStorage-Merker) –
+     in der echten Plattform: beim ersten Login der 30-Tage-Testversion. */
+  startTour(steps, opts = {}) {
+    let i = 0;
+    const dim = document.createElement('div');
+    dim.className = 'tour-dim';
+    const card = document.createElement('div');
+    card.className = 'tour-card';
+    document.body.append(dim, card);
+    let spotEl = null;
+
+    const cleanup = () => {
+      if (spotEl) spotEl.classList.remove('tour-spot');
+      dim.remove(); card.remove();
+      if (opts.onEnd) opts.onEnd();
+    };
+
+    const render = () => {
+      const s = steps[i];
+      if (spotEl) spotEl.classList.remove('tour-spot');
+      spotEl = s.sel ? document.querySelector(s.sel) : null;
+      if (spotEl) {
+        spotEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        spotEl.classList.add('tour-spot');
+        dim.style.display = 'none';        /* Abdunkelung kommt vom Spot-Schatten */
+      } else {
+        dim.style.display = 'block';
+      }
+      card.innerHTML =
+        '<div class="step-label">Schritt ' + (i + 1) + ' von ' + steps.length + '</div>' +
+        '<h3>' + s.title + '</h3>' +
+        '<p>' + s.text + '</p>' +
+        '<div class="tour-dots">' + steps.map((_, d) => '<i class="' + (d === i ? 'on' : '') + '"></i>').join('') + '</div>' +
+        '<div class="tour-nav">' +
+          '<button class="tour-skip" data-act="skip">Tour überspringen</button>' +
+          '<span class="spacer"></span>' +
+          (i > 0 ? '<button class="btn btn-outline btn-sm" data-act="prev">Zurück</button>' : '') +
+          '<button class="btn btn-primary btn-sm" data-act="next">' + (i === steps.length - 1 ? 'Los geht\'s!' : 'Weiter') + '</button>' +
+        '</div>';
+      card.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+        const act = btn.dataset.act;
+        if (act === 'skip') return cleanup();
+        if (act === 'prev') { i--; return render(); }
+        if (i === steps.length - 1) return cleanup();
+        i++; render();
+      }));
+    };
+    render();
+  },
+
+  autoTour(key, steps) {
+    if (localStorage.getItem(key)) return;
+    setTimeout(() => {
+      PB.startTour(steps, { onEnd: () => localStorage.setItem(key, '1') });
+    }, 700);
+  },
+
   /* ---------- Nachrichten-Übersicht: Konversationsliste + Chat ---------- */
   initInbox({ listId, headId, bodyId, inputId, sendId, chats, meInitials }) {
     const list = document.getElementById(listId);

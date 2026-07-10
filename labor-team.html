@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#2173C9">
-<title>Nachrichten (Labor) – Prothetik Börse</title>
+<title>Team &amp; Rechte (Labor) – Prothetik Börse</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="style.css">
@@ -33,7 +33,7 @@
       Aufträge
       <span class="count">5</span>
     </a>
-    <a class="nav-item active" href="labor-nachrichten.html">
+    <a class="nav-item" href="labor-nachrichten.html">
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
       Nachrichten
       <span class="count">2</span>
@@ -52,7 +52,7 @@
       Scan
       <span class="badge badge-teal" style="margin-left:auto;">Neu</span>
     </a>
-    <a class="nav-item hide-mobile" href="labor-team.html">
+    <a class="nav-item active hide-mobile" href="labor-team.html">
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
       Team &amp; Rechte
     </a>
@@ -79,43 +79,85 @@
 
     <div class="topbar">
       <div>
-        <h1>Nachrichten</h1>
-        <p>Wähle links eine Praxis aus, um den Chat zu öffnen.</p>
+        <h1>Team &amp; Rechte</h1>
+        <p>Lade Mitarbeiter ein und lege fest, welche Funktionen jede Person nutzen darf.</p>
       </div>
       <div class="topbar-actions">
         <a class="btn btn-outline btn-sm" href="dashboard.html" title="Demo-Rolle wechseln">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"/></svg>
           Demo: als Praxis ansehen
         </a>
+        <button class="btn btn-primary btn-sm" onclick="PB.toast('Einladung per E-Mail versendet (Demo)')">+ Mitarbeiter einladen</button>
       </div>
     </div>
 
-    <div class="chat-layout">
-      <!-- Konversationsliste -->
-      <aside class="card convo-panel">
-        <div class="convo-search">
-          <input type="text" placeholder="Praxis suchen …" id="convoSearch">
-        </div>
-        <div class="convo-list" id="convoList"></div>
-      </aside>
+    <div class="demo-banner" style="background:var(--blue-100); border-color:var(--blue-200); color:var(--blue-700);">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Mitarbeiterrollen mit einzelnen Berechtigungen sind im <b>&nbsp;Plus-&nbsp;</b> und <b>&nbsp;Premium-Plan&nbsp;</b> enthalten.
+    </div>
 
-      <!-- Aktiver Chat -->
-      <section class="chat-panel">
-        <div class="chat-head" id="chatHead"></div>
-        <div class="chat-body" id="chatBody"></div>
-        <div class="chat-input">
-          <button class="icon-btn" title="Datei anhängen" onclick="PB.toast('Dateianhang – in der Demo deaktiviert')">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
-          </button>
-          <button class="icon-btn" title="Formular senden" onclick="PB.toast('Digitales Formular wird angehängt …')">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          </button>
-          <input type="text" id="chatInput" placeholder="Nachricht schreiben …" autocomplete="off">
-          <button class="icon-btn send" id="chatSend" title="Senden">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-          </button>
+    <div class="order-grid">
+
+      <div class="order-card member-card">
+        <div class="head-row">
+          <div class="avatar">LS</div>
+          <div>
+            <b>ZTM Lukas Sommer</b>
+            <small>Zahntechnikermeister · Laborinhaber</small>
+          </div>
+          <span class="badge badge-blue">Admin</span>
         </div>
-      </section>
+        <p style="font-size:13px; color:var(--ink-500); padding:10px 0;">
+          Der Admin hat vollen Zugriff, verwaltet das Abo, lädt Mitarbeiter ein und vergibt Berechtigungen.
+        </p>
+        <div class="foot" style="border-top:1px solid var(--border); padding-top:12px;">
+          <span class="badge badge-green"><span class="dot"></span> Alle Rechte</span>
+          <span class="id">Inhaber-Konto</span>
+        </div>
+      </div>
+
+      <div class="order-card member-card">
+        <div class="head-row">
+          <div class="avatar" style="background:linear-gradient(135deg,#5BA4EC,#1A5CA3);">AV</div>
+          <div>
+            <b>Anna Vogt</b>
+            <small>Zahntechnikerin · CAD/CAM</small>
+          </div>
+          <span class="badge badge-teal">Mitarbeiterin</span>
+        </div>
+        <div class="perm-row"><span>Anfragen einsehen</span><label class="switch"><input type="checkbox" checked><i></i></label></div>
+        <div class="perm-row"><span>Aufträge verbindlich bestätigen</span><label class="switch"><input type="checkbox" checked><i></i></label></div>
+        <div class="perm-row"><span>Chat &amp; Nachrichten</span><label class="switch"><input type="checkbox" checked><i></i></label></div>
+        <div class="perm-row"><span>Dokumente &amp; Scans hochladen</span><label class="switch"><input type="checkbox" checked><i></i></label></div>
+        <div class="perm-row"><span>Umsätze &amp; Abo einsehen</span><label class="switch"><input type="checkbox"><i></i></label></div>
+      </div>
+
+      <div class="order-card member-card">
+        <div class="head-row">
+          <div class="avatar" style="background:linear-gradient(135deg,#E89B2F,#D9534F);">MW</div>
+          <div>
+            <b>Max Weber</b>
+            <small>Bote · Abhol- &amp; Liefertouren</small>
+          </div>
+          <span class="badge badge-teal">Mitarbeiter</span>
+        </div>
+        <div class="perm-row"><span>Touren einsehen &amp; bestätigen</span><label class="switch"><input type="checkbox" checked><i></i></label></div>
+        <div class="perm-row"><span>Chat &amp; Nachrichten</span><label class="switch"><input type="checkbox" checked><i></i></label></div>
+        <div class="perm-row"><span>Anfragen einsehen</span><label class="switch"><input type="checkbox"><i></i></label></div>
+        <div class="perm-row"><span>Aufträge verbindlich bestätigen</span><label class="switch"><input type="checkbox"><i></i></label></div>
+        <div class="perm-row"><span>Umsätze &amp; Abo einsehen</span><label class="switch"><input type="checkbox"><i></i></label></div>
+      </div>
+
+
+      <div class="order-card" style="display:grid; place-items:center; text-align:center; border-style:dashed; background:var(--blue-50); min-height:220px;">
+        <div>
+          <svg width="34" height="34" fill="none" stroke="var(--blue-400)" stroke-width="1.6" viewBox="0 0 24 24" style="margin:0 auto 10px;"><path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+          <b style="display:block; margin-bottom:6px;">Weitere Person einladen</b>
+          <p style="font-size:13px; color:var(--ink-500); margin-bottom:14px;">Neue Mitarbeiter erhalten eine E-Mail und legen ihr eigenes Passwort + 2FA fest.</p>
+          <button class="btn btn-outline btn-sm" onclick="PB.toast('Einladung per E-Mail versendet (Demo)')">Einladen</button>
+        </div>
+      </div>
+
     </div>
 
   </main>
@@ -123,54 +165,10 @@
 
 <script src="app.js"></script>
 <script>
-  const CHATS = [
-    {
-      name: 'Praxis Dr. Röckle', initials: 'SR', grad: 'linear-gradient(135deg,#5BA4EC,#2BB3B1)',
-      sub: 'Auftrag #A-1019 · Zirkon-Krone, Zahn 14', unread: 1,
-      messages: [
-        { who: 'me',   text: 'Guten Morgen Dr. Röckle! Wir haben den Auftrag angenommen – Modell ist bereits gegossen. 🦷', time: '09:12' },
-        { who: 'them', text: 'Super, danke! Bitte Farbton A2 mit leichter Transluzenz im Schneidebereich.', time: '09:30' },
-        { who: 'me',   text: 'Notiert – A2 mit Transluzenz. Ist im Auftragsformular ergänzt.', time: '09:41' },
-        { who: 'me',   text: 'Update: Gerüst ist gefräst und passt hervorragend aufs Modell.', time: '11:05' },
-        { who: 'them', text: 'Sieht top aus! Können wir die Lieferung am 14.07. einhalten?', time: '11:18' }
-      ]
-    },
-    {
-      name: 'Zahnzentrum Stuttgart-Mitte', initials: 'ZS', grad: 'linear-gradient(135deg,#1A5CA3,#5BA4EC)',
-      sub: 'Auftrag #A-1016 · Modellguss UK', unread: 1,
-      messages: [
-        { who: 'me',   text: 'Der Modellguss ist in Arbeit – Gerüstanprobe wäre nächste Woche möglich.', time: '09:10' },
-        { who: 'them', text: 'Klingt gut. Passt der Liefertermin 18.07. weiterhin?', time: '09:40' }
-      ]
-    },
-    {
-      name: 'Praxis Dr. Wagner', initials: 'DW', grad: 'linear-gradient(135deg,#2FA866,#2BB3B1)',
-      sub: 'Auftrag #A-1014 · Vollprothese UK', unread: 0,
-      messages: [
-        { who: 'me',   text: 'Die Wachsaufstellung ist fertig – Fotos sind im Auftrag hinterlegt.', time: 'Gestern' },
-        { who: 'them', text: 'Vielen Dank, sieht sehr gut aus. Patientin ist happy mit der Zahnform!', time: 'Gestern' }
-      ]
-    },
-    {
-      name: 'MVZ Dental Neckartal', initials: 'MN', grad: 'linear-gradient(135deg,#E89B2F,#2F86E0)',
-      sub: 'Auftrag #A-1013 · Aufbissschiene', unread: 0,
-      messages: [
-        { who: 'them', text: 'Anprobe am Donnerstag 10:30 Uhr bestätigt.', time: 'Dienstag' },
-        { who: 'me',   text: 'Perfekt, die Schiene ist bis dahin fertig poliert. Bis Donnerstag!', time: 'Dienstag' }
-      ]
-    }
-  ];
-
-  PB.initInbox({
-    listId: 'convoList', headId: 'chatHead', bodyId: 'chatBody',
-    inputId: 'chatInput', sendId: 'chatSend',
-    chats: CHATS, meInitials: 'DS'
-  });
-
-  document.getElementById('convoSearch').addEventListener('input', e => {
-    const q = e.target.value.toLowerCase();
-    document.querySelectorAll('#convoList .convo-item').forEach(el => {
-      el.style.display = el.textContent.toLowerCase().includes(q) ? '' : 'none';
+  document.querySelectorAll('.perm-row input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', e => {
+      const label = e.target.closest('.perm-row').querySelector('span').textContent;
+      PB.toast('„' + label + '" ' + (e.target.checked ? 'freigeschaltet' : 'deaktiviert'));
     });
   });
 </script>

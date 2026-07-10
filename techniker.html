@@ -38,13 +38,23 @@
       Nachrichten
       <span class="count">2</span>
     </a>
-    <a class="nav-item" href="labor-kunden.html">
+    <a class="nav-item hide-mobile" href="labor-kunden.html">
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
       Meine Praxen
     </a>
     <a class="nav-item" href="#" onclick="PB.toast('Profilverwaltung folgt im nächsten Ausbauschritt'); return false;">
       <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
       Laborprofil
+    </a>
+
+    <a class="nav-item" href="labor-scan.html">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Scan
+      <span class="badge badge-teal" style="margin-left:auto;">Neu</span>
+    </a>
+    <a class="nav-item hide-mobile" href="labor-team.html">
+      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      Team &amp; Rechte
     </a>
 
     <div class="nav-label">Demnächst</div>
@@ -82,6 +92,7 @@
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"/></svg>
           Demo: als Praxis ansehen
         </a>
+        <button class="btn btn-outline btn-sm" onclick="PB.startTour(TOUR)" title="Tutorial erneut ansehen">🎓 Tour</button>
         <span class="badge badge-blue"><span class="dot"></span> Empfangsbereit</span>
       </div>
     </div>
@@ -116,7 +127,7 @@
 
     <!-- Widgets: Kapazität / Touren / Bewertung -->
     <div class="dash-widgets">
-      <div class="card widget">
+      <div class="card widget" id="capWidget">
         <h3>
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           Kapazität diese Woche
@@ -193,7 +204,7 @@
           <span class="id">#A-1024</span>
           <div class="request-actions">
             <button class="btn btn-danger btn-sm" data-action="decline">Ablehnen</button>
-            <button class="btn btn-success btn-sm" data-action="accept">Annehmen</button>
+            <button class="btn btn-primary btn-sm" data-action="details">Details ansehen</button>
           </div>
         </div>
       </div>
@@ -213,7 +224,7 @@
           <span class="id">#A-1025</span>
           <div class="request-actions">
             <button class="btn btn-danger btn-sm" data-action="decline">Ablehnen</button>
-            <button class="btn btn-success btn-sm" data-action="accept">Annehmen</button>
+            <button class="btn btn-primary btn-sm" data-action="details">Details ansehen</button>
           </div>
         </div>
       </div>
@@ -233,7 +244,7 @@
           <span class="id">#A-1026</span>
           <div class="request-actions">
             <button class="btn btn-danger btn-sm" data-action="decline">Ablehnen</button>
-            <button class="btn btn-success btn-sm" data-action="accept">Annehmen</button>
+            <button class="btn btn-primary btn-sm" data-action="details">Details ansehen</button>
           </div>
         </div>
       </div>
@@ -285,21 +296,110 @@
   </main>
 </div>
 
+<!-- Detail-Modal: verbindliche Auftragsbestätigung -->
+<div class="modal-backdrop" id="detailModal">
+  <div class="modal modal-detail" id="detailBox"></div>
+</div>
+
 <script src="app.js"></script>
 <script>
+  /* ---------- Details je Anfrage (Demo-Daten) ---------- */
+  const DETAILS = {
+    'Krone Oberkiefer': {
+      beschreibung: 'Vollkeramik-Krone (Zirkon) für Zahn 16, Farbton A3. Präparation erfolgt, digitale Abformung liegt bei. Patientin wünscht möglichst natürliche Kaufläche.',
+      dokumente: ['praep_foto_16.jpg', 'digitalabformung_16.stl'],
+      material: 'Zirkon, monolithisch', zahn: '16', farbton: 'A3'
+    },
+    'Brücke – 3 Glieder': {
+      beschreibung: 'Brücke 34–36, Pfeiler 34 und 36, Zwischenglied 35. NEM-Gerüst mit Keramikverblendung. Bissregistrat liegt bei.',
+      dokumente: ['auftragszettel_brueke.pdf'],
+      material: 'NEM + Keramikverblendung', zahn: '34–36', farbton: 'A2'
+    },
+    'Implantatkrone': {
+      beschreibung: 'Implantatkrone Regio 46 auf Titanbasis, verschraubt. Scanbody-Aufnahme und Implantatpass sind hinterlegt.',
+      dokumente: ['scanbody_46.stl', 'implantatpass.pdf', 'roentgen_kontrolle.jpg'],
+      material: 'Zirkon auf Titanklebebasis', zahn: '46', farbton: 'B1'
+    }
+  };
+
+  const modal = document.getElementById('detailModal');
+  const box = document.getElementById('detailBox');
+  let activeCard = null;
+
+  const openDetails = card => {
+    activeCard = card;
+    const titel = card.querySelector('h3').textContent;
+    const prio = card.querySelector('.top .badge').textContent.trim();
+    const meta = [...card.querySelectorAll('.meta div')].map(d => d.textContent.trim());
+    const d = DETAILS[titel] || { beschreibung: '–', dokumente: [], material: '–', zahn: '–', farbton: '–' };
+    const id = card.querySelector('.id').textContent;
+
+    box.innerHTML =
+      '<span class="badge badge-amber" style="margin-bottom:10px;"><span class="dot"></span> Anfrage ' + id + ' · wartet auf Bestätigung</span>' +
+      '<h2>' + titel + '</h2>' +
+      '<p style="font-size:13px; color:var(--ink-500); margin-bottom:14px;">' + meta[0] + ' · ' + meta[1] + '</p>' +
+      '<div class="kv">' +
+        '<div class="row"><span>Material</span><b>' + d.material + '</b></div>' +
+        '<div class="row"><span>Zahn / Region</span><b>' + d.zahn + '</b></div>' +
+        '<div class="row"><span>Farbton</span><b>' + d.farbton + '</b></div>' +
+        '<div class="row"><span>' + meta[2].split(':')[0] + '</span><b>' + meta[2].split(': ')[1] + '</b></div>' +
+        '<div class="row"><span>Priorität</span><b>' + prio + '</b></div>' +
+        '<div class="row"><span>Referenz</span><b>' + meta[3].split('· ')[1] + '</b></div>' +
+      '</div>' +
+      '<div class="detail-desc"><b style="display:block; margin-bottom:4px;">Beschreibung der Praxis</b>' + d.beschreibung + '</div>' +
+      d.dokumente.map(f =>
+        '<div class="file-item" style="margin-bottom:6px;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="17" height="17"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><span>' + f + '</span><a href="#" onclick="PB.toast(\'Vorschau – in der Demo deaktiviert\'); return false;" style="margin-left:auto; font-size:12.5px;">Ansehen</a></div>'
+      ).join('') +
+      '<p class="hint" style="margin-top:10px;">Mit „Verbindlich annehmen" entsteht ein offizieller Auftrag. Die Praxis erhält automatisch eine Auftragsbestätigung.</p>' +
+      '<div class="actions">' +
+        '<button class="btn btn-outline btn-sm" data-md="close">Schließen</button>' +
+        '<button class="btn btn-danger btn-sm" data-md="decline">Ablehnen</button>' +
+        '<button class="btn btn-success" data-md="accept">✓ Verbindlich annehmen</button>' +
+      '</div>';
+    modal.classList.add('open');
+  };
+
+  const confirmAccept = () => {
+    const id = activeCard.querySelector('.id').textContent;
+    const titel = activeCard.querySelector('h3').textContent;
+    activeCard.classList.add('accepted');
+    activeCard.querySelector('.request-actions').innerHTML =
+      '<a class="btn btn-success btn-sm" href="labor-auftrag.html">Bestätigt – Auftrag öffnen</a>';
+    box.innerHTML =
+      '<div style="text-align:center;">' +
+        '<div class="icon-big" style="width:64px;height:64px;border-radius:50%;background:var(--green-100);color:var(--green-500);display:grid;place-items:center;margin:0 auto 16px;">' +
+          '<svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" width="32" height="32"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' +
+        '</div>' +
+        '<h2 style="margin-bottom:8px;">Offizieller Auftrag erstellt</h2>' +
+        '<p style="font-size:14px; color:var(--ink-500); margin-bottom:20px;">Die Anfrage ' + id + ' („' + titel + '") ist jetzt ein verbindlicher Auftrag. Die Praxis hat eine Auftragsbestätigung erhalten – alle anderen Labore wurden informiert.</p>' +
+        '<div class="actions" style="justify-content:center;">' +
+          '<button class="btn btn-outline" data-md="close">Schließen</button>' +
+          '<a class="btn btn-primary" href="labor-auftrag.html">Auftrag öffnen</a>' +
+        '</div>' +
+      '</div>';
+  };
+
+  box.addEventListener('click', e => {
+    const act = e.target.closest('[data-md]');
+    if (!act) return;
+    if (act.dataset.md === 'close') modal.classList.remove('open');
+    if (act.dataset.md === 'accept') confirmAccept();
+    if (act.dataset.md === 'decline') {
+      activeCard.classList.add('declined');
+      activeCard.querySelector('.request-actions').innerHTML = '<span class="badge badge-red">Abgelehnt</span>';
+      modal.classList.remove('open');
+      PB.toast('Anfrage abgelehnt – die Praxis wurde informiert');
+    }
+  });
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+
   document.querySelectorAll('.request-card').forEach(card => {
     card.querySelectorAll('button[data-action]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const actions = card.querySelector('.request-actions');
-        if (btn.dataset.action === 'accept') {
-          card.classList.add('accepted');
-          actions.innerHTML = '<a class="btn btn-success btn-sm" href="labor-auftrag.html">Angenommen – Auftrag öffnen</a>';
-          PB.toast('Auftrag angenommen – die Praxis wurde benachrichtigt');
-        } else {
-          card.classList.add('declined');
-          actions.innerHTML = '<span class="badge badge-red">Abgelehnt</span>';
-          PB.toast('Anfrage abgelehnt');
-        }
+        if (btn.dataset.action === 'details') return openDetails(card);
+        card.classList.add('declined');
+        card.querySelector('.request-actions').innerHTML = '<span class="badge badge-red">Abgelehnt</span>';
+        PB.toast('Anfrage abgelehnt – die Praxis wurde informiert');
       });
     });
   });
@@ -309,6 +409,23 @@
       ? 'Anfragen pausiert – Du erhältst vorerst keine neuen Anfragen'
       : 'Empfang aktiv – Du erhältst wieder Anfragen aus Deinem Umkreis');
   });
+
+  /* ---------- Onboarding-Tour (Labor) ---------- */
+  const TOUR = [
+    { title: 'Willkommen bei der Prothetik Börse! 👋', text: 'Deine 30-Tage-Testversion ist aktiv. Wir zeigen Dir in einer kurzen Tour die wichtigsten Funktionen der Labor-Ansicht – dauert keine Minute.' },
+    { sel: '#requestGrid', title: 'Eingehende Anfragen', text: 'Du wirst benachrichtigt, sobald eine Praxis in Deinem Umkreis sucht. Öffne „Details ansehen", prüfe alle Einzelheiten – und erst mit Deiner verbindlichen Bestätigung entsteht der offizielle Auftrag.' },
+    { sel: '#capWidget', title: 'Deine Kapazität', text: 'Zeige, wie ausgelastet Dein Labor ist – oder pausiere neue Anfragen mit einem Schalter, wenn es eng wird.' },
+    { sel: 'a[href="labor-nachrichten.html"]', title: 'Nachrichten', text: 'Pro Praxis ein Chat: Rückfragen, Fotos und digitale Formulare – ohne E-Mail und Fax.' },
+    { sel: 'a[href="labor-scan.html"]', title: 'Scan & Upload', text: 'Fotografiere Lieferscheine oder Arbeiten mit dem Handy direkt in den Auftrag – bald auch als native App.' },
+    { sel: 'a[href="labor-team.html"]', title: 'Team & Rechte', text: 'Als Admin lädst Du Mitarbeiter ein und schaltest jedem genau die Funktionen frei, die er braucht.' },
+    { title: 'Fertig! 🎉', text: 'Das war\'s schon. Deine Testversion läuft 30 Tage mit vollem Funktionsumfang – bei Fragen ist der Support nur einen Chat entfernt.' }
+  ];
+  PB.autoTour('pb-tour-labor', TOUR);
+
+  /* Benachrichtigung über neue Anfragen (Demo) */
+  if (localStorage.getItem('pb-tour-labor')) {
+    setTimeout(() => PB.toast('🔔 3 neue Anfragen warten auf Deine Bestätigung'), 900);
+  }
 </script>
 </body>
 </html>
